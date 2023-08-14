@@ -339,6 +339,12 @@ Misc:AddToggle('AutoBuy', {
 
 })
 
+Misc:AddToggle('AutoSell', {
+    Text = 'Auto Buy',
+    Default = false
+
+})
+
 local MyButton = Misc:AddButton('Server-Hop', function()
     loadstring(game:HttpGet("https://pastebin.com/raw/LNxGXjkG"))()
 end)
@@ -347,6 +353,25 @@ Misc:AddToggle('DropEsp', {
     Text = 'Droped Clotch Esp',
     Default = false
 
+})
+Misc:AddSlider('WalkSpeed', {
+    Text = 'WalkSpeed',
+
+    -- Text, Default, Min, Max, Rounding must be specified.
+    -- Rounding is the number of decimal places for precision.
+
+    -- Example:
+    -- Rounding 0 - 5
+    -- Rounding 1 - 5.1
+    -- Rounding 2 - 5.15
+    -- Rounding 3 - 5.155
+
+    Default = 16,
+    Min = 16,
+    Max = 37,
+    Rounding = 0,
+
+    Compact = false, -- If set to true, then it will hide the label
 })
 
 --- Shops
@@ -397,6 +422,10 @@ home:AddToggle('Exclus', {
     Default = false
 
 })
+
+Options.WalkSpeed:OnChanged(function(Value)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+end)
 
 Toggles.SportM:OnChanged(function(Value)
     if Value then
@@ -723,6 +752,61 @@ Toggles.DropEsp:OnChanged(function(Value)
     else
         _G.DropedEsp = false
         
+    end
+end)
+
+getgenv().autoSellEnabled = true;
+
+Toggles.AutoSell:OnChanged(function(Value)
+    if Value then 
+        getgenv().autoSellEnabled = true;
+        if not getgenv().autoSellEnabled then
+            return;
+        end
+
+        local getPlayerData = game:GetService("ReplicatedStorage"):FindFirstChild("GameNetwork"):FindFirstChild("ServerNetwork"):FindFirstChild("GetPlayerData");
+        local sellClothing = game:GetService("ReplicatedStorage"):FindFirstChild("GameNetwork"):FindFirstChild("ServerNetwork"):FindFirstChild("SellClothing");
+
+        local itemsSold = 0;
+        local sellDelay = 5;
+
+        coroutine.resume(coroutine.create(function()
+            while task.wait(sellDelay) do
+                if not getgenv().autoSellEnabled then
+                    coroutine.yield();
+                end
+                
+                if itemsSold >= 10 then
+                    task.wait(5);
+                    itemsSold = 0;
+                end
+                
+                local playerData = getPlayerData:InvokeServer();
+                
+                for name,data in pairs(playerData) do
+                    if name ~= "Inventory" or type(data) ~= "table" then 
+                        continue 
+                    end
+                    
+                    for _,itemData in pairs(data) do
+                        local itemName = itemData["ItemName"];
+                        local itemHash = itemData["ItemHash"];
+                        local itemPrice = itemData["Price"];
+                    
+                        if itemName == nil or itemHash == nil or itemPrice == nil then
+                            continue;
+                        end
+                    
+                        sellClothing:InvokeServer(itemHash);
+                        itemsSold += 1;
+                        
+                        print("[Автопродажа | Предмет] Название: "..tostring(itemName)..", Хэш: "..tostring(itemHash)..", Цена: "..tostring(itemPrice));
+                    end
+                end
+            end
+        end))
+    else
+        getgenv().autoSellEnabled = false;
     end
 end)
 
