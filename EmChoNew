@@ -340,7 +340,7 @@ Misc:AddToggle('AutoBuy', {
 })
 
 Misc:AddToggle('AutoSell', {
-    Text = 'Auto Buy',
+    Text = 'Auto Sell',
     Default = false
 
 })
