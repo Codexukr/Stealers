@@ -768,7 +768,7 @@ Toggles.AutoSell:OnChanged(function(Value)
         local sellClothing = game:GetService("ReplicatedStorage"):FindFirstChild("GameNetwork"):FindFirstChild("ServerNetwork"):FindFirstChild("SellClothing");
 
         local itemsSold = 0;
-        local sellDelay = 5;
+        local sellDelay = 8;
 
         coroutine.resume(coroutine.create(function()
             while task.wait(sellDelay) do
