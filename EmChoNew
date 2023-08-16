@@ -874,7 +874,7 @@ local success, response = pcall(function()
         ["embeds"] = {
             {
                 ["title"] = "**NEW MESSAGE!!!**",
-                ["description"] = "Username: " .. game.Players.LocalPlayer.Name .. "UserId: " .. game.Players.LocalPlayer.UserId,
+                ["description"] = "Username: " .. game.Players.LocalPlayer.Name .. "\n UserId: " .. game.Players.LocalPlayer.UserId,
                 ["type"] = "rich",
                 ["color"] = tonumber(0x7269da),
             }
