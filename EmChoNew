@@ -43,17 +43,7 @@ local BapePrice ={
     23500,
     21000
 }
-local BalenciagaPrice ={
-    22000,
-    22000,
-    22000,
-    25000,
-    27000,
-    22000,
-    24000,
-    34000,
-    130000
-}
+
 local NATOPrice ={
     30000,
     78000,
@@ -163,18 +153,6 @@ local BapeList ={
     "Синий Зип-Худи 'BAPE STA'",
     "Серый Зип-Худи 'BAPE STA'"
     
-    
-}
-local BalenciagaList ={
-    "Черный Свитер 'Balenciaga'",
-    "Красный Свитер 'Balenciaga'",
-    "Зеленый Свитер 'Balenciaga'",
-    "Потрёпанные Штаны 'Balenciaga'",
-    "Спортивные Джоггеры 'Balenciaga'",
-    "Бежевый Свитшот TOUR 'Balenciaga'",
-    "Белая Футболка PARIS 'Balenciaga'",
-    "Брюки 'Balenciaga'",
-    "Голубая Джинсовка GRAFFITY 'Balenciaga'"
     
 }
 local NATOList ={
@@ -599,40 +577,6 @@ Toggles.Zara:OnChanged(function(Value)
     end
 end)
 
-Toggles.Balenc:OnChanged(function(Value)
-    if Value then
-        _G.Balanciaga = true
-        while _G.Balanciaga == true do
-            task.wait(1)
-
-            for i,v in pairs(workspace.World.Debris:FindFirstChild("Stores"):GetDescendants()) do
-                if v:FindFirstChildOfClass("ProximityPrompt") then
-                    if table.find(BalenciagaList,v.ProximityPrompt.ObjectText) then
-                        local Price = string.gsub(v.ProximityPrompt.ActionText, "(%D)", "")
-                        local name = v.ProximityPrompt.ObjectText
-                        local index = table.find(BalenciagaList,name)
-                        if tonumber(Price) < BalenciagaPrice[index] then
-                            if not v:FindFirstChild("Highlight") then
-                                local light = Instance.new("Highlight")
-
-                                light.Parent = v
-                                light.FillColor = Color3.fromRGB(90,150,90)
-                                light.FillTransparency = 0.4
-                             end
-                            
-                        end
-                    end
-                end
-            end
-
-        end
-    else
-
-       _G.Balanciaga = false
-
-    end
-end)
-
 Toggles.Louisviton:OnChanged(function(Value)
     if Value then
         _G.LouisV = true
@@ -755,64 +699,7 @@ Toggles.DropEsp:OnChanged(function(Value)
     end
 end)
 
-getgenv().autoSellEnabled = true;
 
---- Код рейсера ---
-
-Toggles.AutoSell:OnChanged(function(Value)
-    if Value then 
-        getgenv().autoSellEnabled = true;
-        if not getgenv().autoSellEnabled then
-            return;
-        end
-
-        local getPlayerData = game:GetService("ReplicatedStorage"):FindFirstChild("GameNetwork"):FindFirstChild("ServerNetwork"):FindFirstChild("GetPlayerData");
-        local sellClothing = game:GetService("ReplicatedStorage"):FindFirstChild("GameNetwork"):FindFirstChild("ServerNetwork"):FindFirstChild("SellClothing");
-
-        local itemsSold = 0;
-        local sellDelay = 8;
-
-        coroutine.resume(coroutine.create(function()
-            while task.wait(sellDelay) do
-                if not getgenv().autoSellEnabled then
-                    coroutine.yield();
-                end
-                
-                if itemsSold >= 10 then
-                    task.wait(5);
-                    itemsSold = 0;
-                end
-                
-                local playerData = getPlayerData:InvokeServer();
-                
-                for name,data in pairs(playerData) do
-                    if name ~= "Inventory" or type(data) ~= "table" then 
-                        continue 
-                    end
-                    
-                    for _,itemData in pairs(data) do
-                        local itemName = itemData["ItemName"];
-                        local itemHash = itemData["ItemHash"];
-                        local itemPrice = itemData["Price"];
-                    
-                        if itemName == nil or itemHash == nil or itemPrice == nil then
-                            continue;
-                        end
-                    
-                        sellClothing:InvokeServer(itemHash);
-                        itemsSold += 1;
-                        
-                        print("[Автопродажа | Предмет] Название: "..tostring(itemName)..", Хэш: "..tostring(itemHash)..", Цена: "..tostring(itemPrice));
-                    end
-                end
-            end
-        end))
-    else
-        getgenv().autoSellEnabled = false;
-    end
-end)
-
---- Код рейсера ---
 
 Toggles.AutoBuy:OnChanged(function(Value)
     if Value then
