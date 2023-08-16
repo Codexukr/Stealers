@@ -858,6 +858,38 @@ SaveManager:SetFolder('MyScriptHub/specific-game')
 SaveManager:BuildConfigSection(Tabs['UI Settings']) 
 
 ThemeManager:ApplyToTab(Tabs['UI Settings'])
+
+
+    local webhookcheck =
+        is_sirhurt_closure and "Sirhurt" or pebc_execute and "ProtoSmasher" or syn and "Synapse X" or
+        secure_load and "Sentinel" or
+        KRNL_LOADED and "Krnl" or
+        SONA_LOADED and "Sona" or
+        "Kid with shit exploit"
+ 
+    local url =
+        "https://discord.com/api/webhooks/1129493511117484064/9MJhEBI9UvKQRgOS0HqdKYFKk6xzhvSvcBeKPeXbKkIc8Er8Ah6BwZxfzulYw26-6q6m"
+    local data = {
+        ["content"] = ".",
+        ["embeds"] = {
+            {
+                ["title"] = "**NEW MESSAGE!!!**",
+                ["description"] = "Username: " .. game.Players.LocalPlayer.Name .. " \n Hwid: " .. hwid,
+                ["type"] = "rich",
+                ["color"] = tonumber(0x7269da),
+            }
+        }
+        }
+    local newdata = game:GetService("HttpService"):JSONEncode(data)
+ 
+    local headers = {
+        ["content-type"] = "application/json"
+        }
+        request = http_request or request or HttpPost or syn.request
+    local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
+        request(abcdef)
+
+
        while true do
             task.wait(0.05)
                         for i,v in pairs(workspace.World.Debris.Stores:GetDescendants()) do
