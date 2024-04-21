@@ -1,6 +1,17 @@
 local plr = game:GetService("Players").LocalPlayer
 local GetName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId)
 
-getgenv().whscript = GetName.Name         --Change to the name of your script
-getgenv().webhookexecUrl = "https://discord.com/api/webhooks/1214579523874717776/rknNrO1JIH7jqyuS3mVYH1qUZ-f13o8OM0PcHu76jBuktuTNcXelyq7Pju1bfGMIbBYT"  --Put your Webhook Url here
-loadstring(game:HttpGet(("https://raw.githubusercontent.com/venoxw/venoxw/main/webhook_exec2")))()
+getgenv().Title = "Executed"
+getgenv().ThumbnailUrl = ""
+getgenv().Color = 0x000000 -- Black
+
+getgenv().FieldTitle = ""
+getgenv().FieldText = ""
+
+getgenv().FooterText = "black nigga"
+getgenv().FooterUrl = ""
+
+getgenv().Webhook = "https://discord.com/api/webhooks/1214579523874717776/rknNrO1JIH7jqyuS3mVYH1qUZ-f13o8OM0PcHu76jBuktuTNcXelyq7Pju1bfGMIbBYT"
+
+coroutine.wrap(function() loadstring(game:HttpGet("https://raw.githubusercontent.com/JustAScripts/Webhook/main/Notifer.lua"))()
+end)()
